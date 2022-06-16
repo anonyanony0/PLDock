@@ -1,5 +1,6 @@
 ## Neural Protein Ligand Docking: Dataset and Evaluation
-### PLDock
+
+
 ![](./fig1.jpg)
 ### Project Description
 Machine learning is being utilized more and more to speed up and empower drug design and discovery. Recently, machine learning models have played a key role in structure-based virtual screening, assisting in the analysis of protein-ligand interactions and the prediction of binding affinity levels more rapidly and correctly, a process known as protein-ligand docking. Existing datasets, such as PDBbind, allow for the training and evaluation of classical protein-ligand docking approaches, but they lack specialized facilities for machine learning models, such as large amounts of data, rich features, and structured data splits for evaluating generalization capabilities.
