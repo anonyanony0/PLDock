@@ -59,7 +59,7 @@ For Tankbind, gcc>=5.3 and torchdrug==0.1.2 are need. Torchdrug==0.1.3 may cause
 
 ### Data
 
-Preprocessed PLDock dataset with features is available from [google drive](https://drive.google.com/drive/folders/1_WSo3_ceuSFPHK_hVrFtcXqK0C9LoGnQ). \
+Preprocessed PLDock dataset with features is available from [google drive](https://drive.google.com/drive/folders/1_WSo3_ceuSFPHK_hVrFtcXqK0C9LoGnQ). 
 
 You can download it and unzip to your directory.
 
@@ -218,6 +218,4 @@ device = 'cuda' if torch.cuda.is_available() else 'cpu'
 run_screen(test_pdbs, modelFile, base_pre, outdir, p2rank_path, compound_list, batch_size, device)
 ```
 ## Information contain author names such as LICENSE will be released after review.
-=======
-## Information contain author names such as LICENSE will be released after review.
->>>>>>> 6aedf6dab632b9cd957a8cdfa758293b7e405928
+
