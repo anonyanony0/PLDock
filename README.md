@@ -170,7 +170,6 @@ out_dir = '/root/PLDock/newdata/out'
 out_dir = '/root/PLDock/newdata/models'
 equibind_test(inference_path=data_dir,output_directory=out_dir,run_dir=models_dir)
 ```
-<<<<<<< HEAD
 ### TankBind
 #### predict binding poses and affinities
 ```python
