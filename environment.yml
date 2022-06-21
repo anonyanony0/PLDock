@@ -2,25 +2,8 @@ name: PLDock
 channels:
   - defaults
   - conda-forge
-  - dglteam
-  - pytorch
 dependencies:
-  - python=3.7
+  - python=3.8
   - rdkit
-  - mpi4y
-  - pytorch 1.10
-  - torchvision
-  - torchaudio
-  - dgl-cuda10.2
-  - openbabel
-  - biopython
-  - biopandas
-  - pot
-  - dgllife
-  - joblib
-  - pyaml
-  - icecream
-  - matplotlib
-  - tensorboard
   - pip:
       - -r requirements.txt

@@ -1,2 +1,3 @@
 include PLDock/models/Equibind/configs_clean/*
 include PLDock/models/Equibind/runs/flexible_self_docking/*
+include PLDock/models/Tankbind/saved_models/*

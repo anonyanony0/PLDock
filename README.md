@@ -5,26 +5,18 @@
 PLDock is a comprehensive neural protein-ligand docking dataset with a tool for training and evaluating machine learning-based protein-ligand docking models. It contains real scenario-based protein-ligand docking tasks, splits, baselines and metrics, with the goal of training and evaluating machine learning-based protein-ligand docking models. PLDock provides more than 70,000 protein-ligand complex structures, more than 150,000 protein-ligand affinity data, 3 typical tasks, 5 types of structured data splits and 9 evaluation metrics.
 
 ## Environment
-Base environment
+* Base environment
 ```
-python=3.7
-pytorch 1.10
-torchvision
-cudatoolkit=10.2
-torchaudio
-dgl-cuda10.2
+python=3.8
+pytorch=1.11
+cudatoolkit=11.3
 rdkit
 openbabel
 biopython
-rdkit
 biopandas
-pot
 dgllife
-joblib
-pyaml
-icecream
-matplotlib
-tensorboard
+mpi4y
+torchdrug==0.1.2
 ```
 
 It is recommended to use conda to manage the environment
@@ -58,7 +50,8 @@ pip3 install -e .
 # Install external:
 pip3 install -r requirements.txt
 ```
-
+* Soft Requirements
+For Tankbind, gcc>=5.3 and torchdrug==0.1.2 are need. Torchdrug==0.1.3 may cause molecular feature dimension error.
 ## How to use PLDock
 
 ### Data
@@ -146,8 +139,9 @@ dp = screening('screening_out')
 dp.screening(core,score,target)
 ```
 ## Models
-We provide [Equibind](https://github.com/HannesStark/EquiBind) as an example model because its code is cleaner relative to other models such as [GNINA](https://github.com/gnina/gnina). We are adding support for other models.
-### Training
+We provide [Equibind](https://github.com/HannesStark/EquiBind) as an example model because its code is cleaner relative to other models such as [GNINA](https://github.com/gnina/gnina). [TankBind](https://github.com/luwei0917/TankBind) is now also supported. We are adding support for other models.
+### Equibind
+#### Training 
 Input data list, structure directory and output directory are needed.Other parameters supported by equbind, such as epoch and config, can also be specified in the function.The model file will be saved in the output_directory.
 ```python
 from PLDock.models.Equibind.train import equibind_train
@@ -155,7 +149,7 @@ data_dir = '/root/PLDock/structure'
 out_dir = '/root/PLDock/test_data'
 equibind_train(train_names=data_dir+'/train.txt',val_names = data_dir+'/valid.txt',pdb_dir=data_dir,logdir=out_dir, num_epochs = 10)
 ```
-### To test your model on the test set. 
+#### To test your model on the test set. 
 It is important to specify your test data list (test_names), structure directory (inference_path) and model directorys(models_dir). The RMSD, kabsch RMSD, centroid distance, and other indicators of the results will be saved in the output_directory.
 ```python
 from PLDock.models.Equibind.inference import equibind_test
@@ -164,7 +158,7 @@ models_dir = '/root/PLDock/test_data'
 out_dir = '/root/PLDock/test_out'
 equibind_test(inference_path=data_dir,output_directory=out_dir,test_names=data_dir+'/test.txt',run_dir =models_dir)
 ```
-### Predict the results of a batch of new data
+#### Predict the results of a batch of new data
 ```python
 from PLDock.models.Equibind.inference import equibind_test
 # new data dir
@@ -172,5 +166,51 @@ new_data = '/root/PLDock/newdata/structure'
 out_dir = '/root/PLDock/newdata/out'
 out_dir = '/root/PLDock/newdata/models'
 equibind_test(inference_path=data_dir,output_directory=out_dir,run_dir=models_dir)
+```
+### TankBind
+#### predict binding poses and affinities
+```python
+from PLDock.models.Tankbind import predictor
+# A list of pdbs
+test_pdbs = ['3d4k']
+# data directory
+test_dir = '/root/PLDock/test'
+# result directory
+out_dir = os.path.join(test_dir, 'out')
+# pdb structure directory
+structure_dir = os.path.join(test_dir, 'structure')
+# model file
+modelFile = '/root/PLDock/saved_models/self_dock.pt'
+# p2rank executable file
+p2rank_path = '/root/PLDock/p2rank/prank'
+
+batch_size = 8
+device = 'cuda' if torch.cuda.is_available() else 'cpu'
+run_precdict(test_pdbs, out_dir, structure_dir, modelFile,p2rank_path, batch_size, device)
+```
+
+####  high-throughput virtual screening
+```python
+from PLDock.models.Tankbind import screening
+# A list of pdbs
+test_pdbs = ['6dlo']
+# a file of a list of compounds
+compound_list = "/root/PLDock/HTVS/Mcule_10000.csv"
+# data directory
+base_pre = f"/root/PLDock/HTVS"
+# result directory
+out_dir = os.path.join(base_pre, 'out')
+# pdb structure directory
+structure_dir = os.path.join(base_pre, 'structure')
+# model file
+modelFile = '/root/PLDock/saved_models/self_dock.pt'
+
+# p2rank executable file
+p2rank_path = '/root/PLDock/p2rank/prank'
+
+batch_size = 8
+device = 'cuda' if torch.cuda.is_available() else 'cpu'
+
+run_screen(test_pdbs, modelFile, base_pre, outdir, p2rank_path, compound_list, batch_size, device)
 ```
 ## Information contain author names such as LICENSE will be released after review.
