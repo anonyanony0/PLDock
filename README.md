@@ -189,7 +189,7 @@ p2rank_path = '/root/PLDock/p2rank/prank'
 
 batch_size = 8
 device = 'cuda' if torch.cuda.is_available() else 'cpu'
-run_precdict(test_pdbs, out_dir, structure_dir, modelFile,p2rank_path, batch_size, device)
+screening.run_precdict(test_pdbs, out_dir, structure_dir, modelFile,p2rank_path, batch_size, device)
 ```
 
 ####  high-throughput virtual screening
@@ -214,7 +214,7 @@ p2rank_path = '/root/PLDock/p2rank/prank'
 batch_size = 8
 device = 'cuda' if torch.cuda.is_available() else 'cpu'
 
-run_screen(test_pdbs, modelFile, base_pre, outdir, p2rank_path, compound_list, batch_size, device)
+screening.run_screen(test_pdbs, modelFile, base_pre, outdir, p2rank_path, compound_list, batch_size, device)
 ```
 ## Information contain author names such as LICENSE will be released after review.
 
