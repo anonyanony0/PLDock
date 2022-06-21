@@ -2,6 +2,9 @@
 
 ## Neural Protein Ligand Docking: Dataset and Evaluation
 
+## Project Page
+[PLDock](https://anonyanony0.github.io/PLDock/)
+
 PLDock is a comprehensive neural protein-ligand docking dataset with a tool for training and evaluating machine learning-based protein-ligand docking models. It contains real scenario-based protein-ligand docking tasks, splits, baselines and metrics, with the goal of training and evaluating machine learning-based protein-ligand docking models. PLDock provides more than 70,000 protein-ligand complex structures, more than 150,000 protein-ligand affinity data, 3 typical tasks, 5 types of structured data splits and 9 evaluation metrics.
 
 ## Environment
@@ -167,6 +170,7 @@ out_dir = '/root/PLDock/newdata/out'
 out_dir = '/root/PLDock/newdata/models'
 equibind_test(inference_path=data_dir,output_directory=out_dir,run_dir=models_dir)
 ```
+<<<<<<< HEAD
 ### TankBind
 #### predict binding poses and affinities
 ```python
@@ -214,3 +218,6 @@ device = 'cuda' if torch.cuda.is_available() else 'cpu'
 run_screen(test_pdbs, modelFile, base_pre, outdir, p2rank_path, compound_list, batch_size, device)
 ```
 ## Information contain author names such as LICENSE will be released after review.
+=======
+## Information contain author names such as LICENSE will be released after review.
+>>>>>>> 6aedf6dab632b9cd957a8cdfa758293b7e405928
